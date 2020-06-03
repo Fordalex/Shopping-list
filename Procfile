@@ -1,1 +1,1 @@
-web: gunicorn authorisation.wsgi:application
+web: gunicorn shopping.wsgi:application
