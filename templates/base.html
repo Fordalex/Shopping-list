@@ -19,8 +19,12 @@
   </head>
   <body class="p-1 pl-md-3">
     
+    <div class="row justify-content-center m-0 p-0">
+      <div class="col-12 col-md-11 col-lg-9">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
 
-    {% block content %}{% endblock %}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

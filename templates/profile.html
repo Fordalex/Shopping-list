@@ -18,57 +18,18 @@
 </div>
 <div class="row">
     <div class="col-12 d-flex justify-content-between mt-1">
-        <img src="https://img.icons8.com/fluent/32/000000/add.png" data-toggle="collapse" href="#add_form" />
+        <a href="/items/items/">
+            <img src="https://img.icons8.com/fluent/32/000000/add.png" data-toggle="collapse" href="#add_form" />
+        </a>
         <img src="https://img.icons8.com/cotton/32/000000/edit--v2.png" data-toggle="collapse" href=".delete" />
     </div>
 </div>
-<div class="row justify-content-center">
-    <div class="col-12 col-md-6 collapse" id="add_form">
-        <h5 class="m-0">Add an Item:</h5>
-        <form action="/items/add_item/" method="POST">
-            {% csrf_token %}
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input name="item" class="form-control" required>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <select class="form-control" name="category">
-                            {% if categories %}
-                                {% for category in categories %}
-                                <option value="{{ category.category }}">{{ category.category }}</option>
-                                {% endfor %}
-                            {% else %}
-                                <option value="other">Other</option>
-                            {% endif %}
-                        </select>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <input type="submit" value="Add Item" class="btn btn-success form-control">
-                    </div>
-                </div>
-        </form>
-    </div>
-    <div class="col-12 col-md-6 collapse" id="add_form">
-        <h5 class="m-0">Add a category:</h5>
-        <form action="/items/add_category/" method="POST">
-            {% csrf_token %}
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input name="category" class="form-control" required>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <input type="submit" value="Add Category" class="btn btn-primary form-control">
-                    </div>
-                </div>
-        </form>
-    </div>
-</div>
 
-</div>
+
 <ol class="mt-4 pl-4 ">
     {% for item in items %}
-    <li style="height:40px;">
-        {{ item.name }}<span class="ml-3">{{ item.category }}</span><a href="/items/delete/{{item.id}}" class="btn btn-danger float-right collapse delete">Delete</a>
+    <li style="height:40px;" class="d-flex justify-content-between mt-1">
+        {{ item.name }}<span><b>{{ item.category }}</b></span><a href="/items/delete/{{item.id}}" class="btn btn-danger float-right collapse delete">Delete</a>
     </li>
     {% endfor %}
 </ol>
