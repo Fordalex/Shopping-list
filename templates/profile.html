@@ -25,14 +25,24 @@
     </div>
 </div>
 
+{% for cat in categories %} 
+    {% if cat %}
+        <h5 class="mt-3">{{ cat }}</h5>
+        <ol class="mt-4 pl-4 ">
+            {% for item in items %}
+                {% if item.category == cat %}
+                    <li style="height:40px;" class="d-flex justify-content-between mt-1">
+                        {{ item.name }}<span></span><a href="/items/delete/{{item.id}}" class="btn btn-danger float-right collapse delete">Delete</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endfor %}
 
-<ol class="mt-4 pl-4 ">
-    {% for item in items %}
-    <li style="height:40px;" class="d-flex justify-content-between mt-1">
-        {{ item.name }}<span><b>{{ item.category }}</b></span><a href="/items/delete/{{item.id}}" class="btn btn-danger float-right collapse delete">Delete</a>
-    </li>
-    {% endfor %}
-</ol>
+
+
+
 <div class="row">
     <div class="col-12">
         <a href="/items/delete_all/" class="container-fluid collapse delete btn btn-danger">Delete All!</a>
