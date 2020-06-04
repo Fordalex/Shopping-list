@@ -39,17 +39,26 @@
         </ol>
     {% endif %}
 {% endfor %}
-
-
-
-
 <div class="row">
     <div class="col-12">
         <a href="/items/delete_all/" class="container-fluid collapse delete btn btn-danger">Delete All!</a>
     </div>
 </div>
 
-
+<div class="row">
+    <div class="col-6">
+        <h4>All Users</h4>
+        {% for user in users %}
+            <p>{{ user.username }}</p>
+        {% endfor %}
+    </div>
+    <div class="col-6">
+        <h4>Shopping partners</h4>
+        {% for friend in friends %}
+            <p>{{ friend.username }}</p>
+        {% endfor %}
+    </div>
+</div>
 
 
 {% endblock %}

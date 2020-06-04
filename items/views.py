@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from .models import Favorite, Category, Item
+from .models import Favorite, Category, Item, Friend
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 def items(request):
     favorite = Favorite.objects.filter(author=request.user.username)
     category = Category.objects.filter(author=request.user.username)
+
+
     content = {
         'favorite': favorite,
         'categories': category,
@@ -43,4 +47,15 @@ def delete(request, id):
 
 def delete_all(request):
     Item.objects.all().delete()
+    return redirect('profile')
+
+def change_friends(request, operation, pk):
+    print(operation)
+    print(pk)
+    new_friend = User.objects.get(pk=pk)
+    if operation == 'add':
+        Friend.make_friend(request.user, new_friend)
+    elif operation == 'remove':
+        Friend.remove_friend(request.user, new_friend)
+    
     return redirect('profile')

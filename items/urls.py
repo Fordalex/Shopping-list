@@ -9,4 +9,5 @@ urlpatterns = [
     path('remove_favorite/<id>', views.remove_favorite, name="remove_favorite"),
     path('delete/<id>', views.delete, name="delete"),
     path('delete_all/', views.delete_all, name="delete_all"),
+    path('connect/<operation>/<pk>', views.change_friends, name="change_friends"),
 ]
