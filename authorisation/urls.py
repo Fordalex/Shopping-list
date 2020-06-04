@@ -22,7 +22,7 @@ from allauth.account.views import login
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login),
-    path('add_item/', add_item),
+    path('items/', include('items.urls')),
     path('delete/', delete),
     path('accounts/', include('allauth.urls')),
     path('home/', profile, name="profile")

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from items.models import Item
+from items.models import Item, Category
 
 def profile(request):
     items = Item.objects.filter(author=request.user.username)
+    category = Category.objects.all()
     content = {
-        'items': items
+        'items': items,
+        'categories': category,
     }
     return render(request, 'profile.html', content)
 
