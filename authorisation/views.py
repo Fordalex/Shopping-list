@@ -3,7 +3,7 @@ from items.models import Item, Category
 
 def profile(request):
     items = Item.objects.filter(author=request.user.username)
-    category = Category.objects.all()
+    category = Category.objects.filter(author=request.user.username)
     content = {
         'items': items,
         'categories': category,

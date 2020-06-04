@@ -4,7 +4,7 @@ from .models import Favorite, Category, Item
 # Create your views here.
 def items(request):
     favorite = Favorite.objects.filter(author=request.user.username)
-    category = Category.objects.all()
+    category = Category.objects.filter(author=request.user.username)
     content = {
         'favorite': favorite,
         'categories': category,
@@ -28,8 +28,12 @@ def add_category(request):
 
 def remove_category(request, id):
     category = get_object_or_404(Category, pk=id)
-    print(category)
     category.delete()
+    return redirect('items')
+
+def remove_favorite(request, id):
+    fav = get_object_or_404(Favorite, pk=id)
+    fav.delete()
     return redirect('items')
 
 def delete(request, id):
