@@ -24,17 +24,15 @@ def add_item(request):
     try:
         print('in basket')
         in_basket = Item.objects.get(name=item_name.capitalize())
-        quantity_in_basket = int(in_basket.quantity)
+        quantity_in_basket = in_basket.quantity
         in_basket.delete()
     except: 
         print('none in basket')
         quantity_in_basket = 0
-    total_quantity = int(quantity) + quantity_in_basket
+    total_quantity = int(quantity) + int(quantity_in_basket)
 
-
+    # create object
     Item.objects.create(name=item_name.capitalize(), author=request.user.username, category=category, quantity=total_quantity)
-
-
 
     #check if favorite already exists
     if request.POST.get('favorite'):
@@ -69,7 +67,8 @@ def delete(request, id):
     return redirect('profile')
 
 def delete_all(request):
-    Item.objects.all().delete()
+    items = Item.objects.filter(author=request.user.username)
+    items.delete()
     return redirect('profile')
 
 def change_friends(request, operation, pk):
