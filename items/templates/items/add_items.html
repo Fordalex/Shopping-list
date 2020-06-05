@@ -3,9 +3,9 @@
 <div class="row justify-content-center mb-5 mt-2">
     <div class="col-12 m-0 p-0">
         <a href="/">
-            <img src="https://img.icons8.com/metro/17/000000/back.png"/>
+            <img src="https://img.icons8.com/metro/17/000000/back.png" />
         </a>
-        
+
         <h3 class="text-center">Add</h3>
     </div>
     <div class="col-12 d-flex justify-content-center">
@@ -13,82 +13,83 @@
     </div>
 </div>
 
-<div class="row justify-content-center m-0 p-0" >
-    
+<div class="row justify-content-center m-0 p-0">
     <div class="col-12 col-md-7 p-1">
         <div class="col-12 -0 p-0">
-            <h5 class="m-0 my-2">Favorites:<img src="https://img.icons8.com/color/32/000000/delete-forever.png" data-toggle="collapse" href=".del" class="float-right"/></h5>
+            <h5 class="m-0 my-2">Favorites:<img src="https://img.icons8.com/color/32/000000/delete-forever.png"
+                    data-toggle="collapse" href=".del" class="float-right" /></h5>
         </div>
         <div class="col-12 m-0 p-0">
-                {% for fav in favorite %}
-                    <button onclick="add_item('{{ fav.name }}', '{{ fav.category }}')" class="mt-1 btn btn-warning">{{ fav.name}} </button>
-                    <a href="/items/remove_favorite/{{ fav.id }}">
-                        <img src="https://img.icons8.com/color/32/000000/delete-forever.png" class="ml-2 mr-5 collapse del">
-                    </a>
-                {% endfor %}
+            {% for fav in favorite %}
+            <button onclick="add_item('{{ fav.name }}', '{{ fav.category }}')"
+                class="mt-1 btn btn-warning">{{ fav.name}} </button>
+            <a href="/items/remove_favorite/{{ fav.id }}">
+                <img src="https://img.icons8.com/color/32/000000/delete-forever.png" class="ml-2 mr-5 collapse del">
+            </a>
+            {% endfor %}
         </div>
         <h5 class="m-0 my-2">Add an Item:</h5>
         <form action="/items/add_item/" method="POST" id="add_item_form">
             {% csrf_token %}
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input name="item" class="form-control"  id="item" required>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <div id="add_input"></div>
-                        <select class="form-control" name="category" id="category" placeholder="Eggs">
-                            {% if categories %}
-                                {% for category in categories %}
-                                <option value="{{ category.category }}">{{ category.category }}</option>
-                                {% endfor %}
-                            {% else %}
-                                <option value="other">Other</option>
-                            {% endif %}
-                        </select>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between my-2 align-items-center">
-                        <label>Favorite</label>
-                        <input type="checkbox" name="favorite" id="favorite_checkbox" checked>
-                    </div>
-                    <div class="col-12 my-2">
-                        <label>Quantity</label>
-                        <input type="number" name="quantity" class="form-control" value="1">
-                    </div>
-                    <div class="col-12 mt-2">
-                        <input type="submit" value="Add Item" class="btn btn-success form-control">
-                    </div>
+            <div class="row">
+                <div class="col-12 mt-2">
+                    <input name="item" class="form-control" id="item" required>
                 </div>
-        </form>
-    </div>
-    <div class="col-12 col-md-4 collapse categories mt-5" >
-        <h5 class="m-0">Add a category:</h5>
-        <form action="/items/add_category/" method="POST">
-            {% csrf_token %}
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input name="category" class="form-control" required>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <input type="submit" value="Add Category" class="btn btn-success form-control">
-                    </div>
+                <div class="col-12 mt-2">
+                    <div id="add_input"></div>
+                    <select class="form-control" name="category" id="category" placeholder="Eggs">
+                        {% if categories %}
+                        {% for category in categories %}
+                        <option value="{{ category.category }}">{{ category.category }}</option>
+                        {% endfor %}
+                        {% else %}
+                        <option value="other">Other</option>
+                        {% endif %}
+                    </select>
                 </div>
-        </form>
-    </div>
-
-    <div class="col-12 col-md-4  collapse categories">
-        <h5 class="m-0">Categories:</h5>
-            {% csrf_token %}
-                <div class="row">
-                    {% for cat in categories %}
-                        <div class="col-12 d-flex justify-content-between my-2">
-                            <p>{{ cat.category }}</p>
-                            <a class="btn btn-danger" href="/items/remove_category/{{ cat.id }}">Delete</a>
-                        </div>
-                    {% endfor %}
+                <div class="col-12 d-flex justify-content-between my-2 align-items-center">
+                    <label>Favorite</label>
+                    <input type="checkbox" name="favorite" id="favorite_checkbox" checked>
                 </div>
+                <div class="col-12 my-2">
+                    <label>Quantity</label>
+                    <input type="number" name="quantity" class="form-control" value="1" min="1">
+                </div>
+                <div class="col-12 mt-2">
+                    <input type="submit" value="Add Item" class="btn btn-success form-control">
+                </div>
+            </div>
         </form>
     </div>
 </div>
+<div class="row justify-content-center m-0 p-0">
+    <div class="col-12 col-md-7 collapse categories mt-5">
+        <h5 class="m-0">Add a category:</h5>
+        <form action="/items/add_category/" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 mt-2">
+                    <input name="category" class="form-control" required>
+                </div>
+                <div class="col-12 mt-2">
+                    <input type="submit" value="Add Category" class="btn btn-success form-control">
+                </div>
+            </div>
+        </form>
+        <h5 class="m-0">Categories:</h5>
+        {% csrf_token %}
+        <div class="row">
+            {% for cat in categories %}
+            <div class="col-12 d-flex justify-content-between my-2">
+                <p>{{ cat.category }}</p>
+                <a class="btn btn-danger" href="/items/remove_category/{{ cat.id }}">Delete</a>
+            </div>
+            {% endfor %}
+        </div>
+        </form>
+    </div>
+</div>
+</[object Object]>
 
 <script>
     function add_item(name, category) {
@@ -100,4 +101,3 @@
     }
 </script>
 {% endblock %}
-

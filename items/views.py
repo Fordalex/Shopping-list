@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from .models import Favorite, Category, Item, Friend
+from .models import Favorite, Category, Item, Friend, FriendRequests
 from django.contrib.auth.models import User
 
 
@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 def items(request):
     favorite = Favorite.objects.filter(author=request.user.username)
     category = Category.objects.filter(author=request.user.username)
-
 
     content = {
         'favorite': favorite,
@@ -23,7 +22,7 @@ def add_item(request):
     quantity = request.POST.get('quantity')
     try:
         print('in basket')
-        in_basket = Item.objects.get(name=item_name.capitalize())
+        in_basket = Item.objects.get(name=item_name.capitalize(), author=request.user.username)
         quantity_in_basket = in_basket.quantity
         in_basket.delete()
     except: 
@@ -67,14 +66,29 @@ def delete(request, id):
     return redirect('profile')
 
 def delete_all(request):
-    items = Item.objects.filter(author=request.user.username)
+    items = Item.objects.all()
     items.delete()
     return redirect('profile')
 
+def friend_request(request, pk):
+    # add data to friend request with the current user and the user requested
+    requested_user = User.objects.get(pk=pk)
+    FriendRequests.objects.create(from_user=request.user, to_user=requested_user)
+
+    return redirect('profile')
+
 def change_friends(request, operation, pk):
-    print(operation)
-    print(pk)
+
     new_friend = User.objects.get(pk=pk)
+
+    # remove friend request 
+    try:
+        friend_request = FriendRequests.objects.get(from_user=pk)
+        friend_request.delete()
+    except:
+        friend_request = None
+    
+    # add or remove user from friend list
     if operation == 'add':
         Friend.make_friend(request.user, new_friend)
         Friend.make_friend(new_friend, request.user)

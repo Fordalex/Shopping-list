@@ -27,6 +27,9 @@ class Favorite(models.Model):
     def __str__(self):
         return self.name
 
+class FriendRequests(models.Model):
+    from_user = models.ForeignKey(User, related_name="fromuser", null=True, on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
 class Friend(models.Model):
     users = models.ManyToManyField(User)

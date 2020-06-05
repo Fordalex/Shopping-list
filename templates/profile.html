@@ -41,9 +41,8 @@
             <li class="d-flex justify-content-between"><b>Item</b><b>Author</b><b>Quantity</b></li>
             {% for item in items %}
                 {% if item.category == cat %}
-                    <li style="height:30px;" class="mt-1"><span class="d-flex justify-content-between"><span>{{ item.name }}</span><span>{{ item.author }}</span><b class="float-right mr-4">{{ item.quantity }} {% if item.author == request.user.username %}
-                        <a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete ml-3">Delete</a>
-                        {% endif %}</b>
+                    <li style="height:30px;" class="mt-1"><span class="d-flex justify-content-between"><span>{{ item.name }}</span><span>{{ item.author }}</span><b class="float-right mr-4">{{ item.quantity }}
+                        <a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete ml-3">Delete</a></b>
                         
                     </span></li>
                 {% endif %}
@@ -80,7 +79,7 @@
             {% if user.username != request.user.username %}
                 <div class="d-flex justify-content-between align-items-center">
                     <p>{{ user.username }}</p>
-                    <a href="/items/connect/add/{{user.id}}">
+                    <a href="/items/friend_request/{{ user.id }}">
                         <img src="https://img.icons8.com/fluent/25/000000/add-user-male.png"/>
                     </a>
                 </div>
@@ -100,7 +99,15 @@
     </div>
     <div class="col-12 col-md-4">
         <h4>Requests</h4>
-        
+        {% for friend in friendRequests %}
+            <p  class="mb-1">{{ friend.from_user.username }}</p>
+            <a href="/items/connect/add/{{ friend.from_user.id }}" class="btn btn-success">add</a>
+            <a href="/items/connect/remove/{{ friend.from_user.id }}" class="btn btn-danger">Decline</a>
+        {% endfor %}
+        {% for requ in sentRequests %}
+        <p>Waiting on a request to: {{ requ.to_user.username }}</p>
+            
+        {% endfor %}
     </div>
 </div>
 
