@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-12 mt-2">
                         <div id="add_input"></div>
-                        <select class="form-control" name="category" id="category">
+                        <select class="form-control" name="category" id="category" placeholder="Eggs">
                             {% if categories %}
                                 {% for category in categories %}
                                 <option value="{{ category.category }}">{{ category.category }}</option>
@@ -49,6 +49,10 @@
                     <div class="col-12 d-flex justify-content-between my-2 align-items-center">
                         <label>Favorite</label>
                         <input type="checkbox" name="favorite" id="favorite_checkbox" checked>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label>Quantity</label>
+                        <input type="number" name="quantity" class="form-control" placeholder="1">
                     </div>
                     <div class="col-12 mt-2">
                         <input type="submit" value="Add Item" class="btn btn-success form-control">

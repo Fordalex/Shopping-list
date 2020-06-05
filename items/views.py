@@ -19,8 +19,22 @@ def add_item(request):
     item_name = request.POST.get('item')  
     category = request.POST.get('category')
 
-   
-    Item.objects.create(name=item_name.capitalize(), author=request.user.username, category=category)
+    # count items of the same name already in the database
+    quantity = request.POST.get('quantity')
+    try:
+        print('in basket')
+        in_basket = Item.objects.get(name=item_name.capitalize())
+        quantity_in_basket = int(in_basket.quantity)
+        in_basket.delete()
+    except: 
+        print('none in basket')
+        quantity_in_basket = 0
+    total_quantity = int(quantity) + quantity_in_basket
+
+
+    Item.objects.create(name=item_name.capitalize(), author=request.user.username, category=category, quantity=total_quantity)
+
+
 
     #check if favorite already exists
     if request.POST.get('favorite'):

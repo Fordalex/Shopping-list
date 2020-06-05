@@ -8,7 +8,7 @@ def profile(request):
     category = Category.objects.filter(author=Current_user)
     users = User.objects.all()
 
-    # Find the current users firends
+    # Find the current users friends
     try:
         friend = Friend.objects.get(current_user=request.user)
         friends = friend.users.all()
@@ -33,7 +33,8 @@ def profile(request):
     # data being passed into the profile page.
     content = {
         'items': allItems,
-        'totalItems': len(items),
+        'totalItems': len(allItems),
+        'usersItems': len(items),
         'categories': categories_in_use,
         'users': users,
         'friends': friends,

@@ -41,7 +41,7 @@
             <li class="d-flex justify-content-between"><b>Item</b><b>Author</b><b>Quantity</b></li>
             {% for item in items %}
                 {% if item.category == cat %}
-                    <li style="height:30px;" class="mt-1"><span class="d-flex justify-content-between"><span>{{ item.name }}</span><span>{{ item.author }}</span><b class="float-right mr-4">1{% if item.author == request.user.username %}
+                    <li style="height:30px;" class="mt-1"><span class="d-flex justify-content-between"><span>{{ item.name }}</span><span>{{ item.author }}</span><b class="float-right mr-4">{{ item.quantity }} {% if item.author == request.user.username %}
                         <a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete ml-3">Delete</a>
                         {% endif %}</b>
                         
@@ -61,7 +61,11 @@
 </div>
 <div class="row">
     <div class="col-12 d-flex justify-content-end">
-        <p><b>Total : {{ totalItems }}</b></p>
+        <div>
+            <p><b>Your Items : {{ usersItems }}</b></p>
+            <p class="float-right"><b>Total : {{ totalItems }}</b></p>
+        </div>
+ 
     </div>
 </div>
 
