@@ -7,9 +7,11 @@ def profile(request):
     items = Item.objects.filter(author=Current_user)
     category = Category.objects.filter(author=Current_user)
     users = User.objects.all()
-    friend = Friend.objects.get(current_user=request.user)
-    friends = friend.users.all()
-
+    try:
+        friend = Friend.objects.get(current_user=request.user)
+        friends = friend.users.all()
+    except:
+        friends = None
 
     # Find the categories in use 
     categories_in_use = []

@@ -24,6 +24,7 @@
         <img src="https://img.icons8.com/color/32/000000/delete-forever.png" data-toggle="collapse" href=".delete" />
     </div>
 </div>
+<hr>
 
 {% for cat in categories %} 
     {% if cat %}
@@ -37,6 +38,7 @@
                 {% endif %}
             {% endfor %}
         </ol>
+        <hr>
     {% endif %}
 {% endfor %}
 <div class="row">
@@ -46,16 +48,31 @@
 </div>
 
 <div class="row">
+    <div class="col-12">
+        <h3 class="text-center my-4">Users</h3>
+    </div>
     <div class="col-6">
         <h4>All Users</h4>
         {% for user in users %}
-            <p>{{ user.username }}</p>
+            {% if user.username != request.user.username %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <p>{{ user.username }}</p>
+                    <a href="/items/connect/add/{{user.id}}">
+                        <img src="https://img.icons8.com/fluent/25/000000/add-user-male.png"/>
+                    </a>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="col-6">
         <h4>Shopping partners</h4>
         {% for friend in friends %}
+        <div class="d-flex justify-content-between align-items-center">
             <p>{{ friend.username }}</p>
+            <a href="/items/connect/remove/{{friend.id}}">
+                <img src="https://img.icons8.com/color/25/000000/remove-user-male--v1.png"/>
+            </a>
+            </div>
         {% endfor %}
     </div>
 </div>
