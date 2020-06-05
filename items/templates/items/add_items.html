@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-12 d-flex justify-content-between my-2 align-items-center">
                         <label>Favorite</label>
-                        <input type="checkbox" name="favorite" checked>
+                        <input type="checkbox" name="favorite" id="favorite_checkbox" checked>
                     </div>
                     <div class="col-12 mt-2">
                         <input type="submit" value="Add Item" class="btn btn-success form-control">
@@ -91,6 +91,7 @@
         $('#item').val(name);
         $('#category').remove()
         $('#add_input').html(`<input value="${category}" name="category" class="form-control">`);
+        $('#favorite_checkbox').prop("checked", false);
         $('#add_item_form').submit()
     }
 </script>

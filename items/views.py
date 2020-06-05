@@ -18,10 +18,19 @@ def items(request):
 def add_item(request):
     item_name = request.POST.get('item')  
     category = request.POST.get('category')
-    Item.objects.create(name=item_name, author=request.user.username, category=category)
 
+   
+    Item.objects.create(name=item_name.capitalize(), author=request.user.username, category=category)
+
+    #check if favorite already exists
     if request.POST.get('favorite'):
-        Favorite.objects.create(name=item_name, author=request.user.username, category=category)
+        try:
+            item_exists = Favorite.objects.get(name=item_name.capitalize())
+        except: 
+            item_exists = False
+    
+        if not item_exists: 
+            Favorite.objects.create(name=item_name.capitalize(), author=request.user.username, category=category)
 
     return redirect('profile')
 
