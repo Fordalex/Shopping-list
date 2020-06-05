@@ -38,10 +38,14 @@
 {% for cat in categories %} 
         <h5 class="mt-3">{{ cat }}</h5>
         <ol class="mt-4 pl-3 list" id="list_{{forloop.counter}}">
-            <li class="d-flex justify-content-between"><b>Item</b><b>Quantity</b></li>
+            <li class="d-flex justify-content-between"><b>Item</b><b>Author</b><b>Quantity</b></li>
             {% for item in items %}
                 {% if item.category == cat %}
-                    <li style="height:30px;" class="mt-1"><span>{{ item.name }}</span><a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete">Delete</a><b class="float-right mr-4">1</b></li>
+                    <li style="height:30px;" class="mt-1"><span class="d-flex justify-content-between"><span>{{ item.name }}</span><span>{{ item.author }}</span><b class="float-right mr-4">1{% if item.author == request.user.username %}
+                        <a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete ml-3">Delete</a>
+                        {% endif %}</b>
+                        
+                    </span></li>
                 {% endif %}
             {% endfor %}
         </ol>

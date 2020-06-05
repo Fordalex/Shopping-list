@@ -36,7 +36,7 @@ def add_item(request):
 
 def add_category(request):
     category = request.POST.get('category')
-    Category.objects.create(category=category)
+    Category.objects.create(category=category, author=request.user.username)
     return redirect('items')
 
 def remove_category(request, id):
@@ -64,7 +64,8 @@ def change_friends(request, operation, pk):
     new_friend = User.objects.get(pk=pk)
     if operation == 'add':
         Friend.make_friend(request.user, new_friend)
+        Friend.make_friend(new_friend, request.user)
     elif operation == 'remove':
         Friend.remove_friend(request.user, new_friend)
-    
+        Friend.remove_friend(new_friend, request.user)
     return redirect('profile')

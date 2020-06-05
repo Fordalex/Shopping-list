@@ -15,19 +15,25 @@ def profile(request):
     except:
         friends = None
 
+    # all items
+    allItems = items
+
+    # collect partenrs items
+    for friend in friends:
+        friends_items = Item.objects.filter(author=friend.username)
+        allItems = allItems | friends_items
+
     # Find the categories in use 
     categories_in_use = []
-    for item in items:
+    for item in allItems:
         if item.category not in categories_in_use:
             categories_in_use.append(item.category)
 
-    # count total items
-
-    totalItems = len(items)
-
+    
+    # data being passed into the profile page.
     content = {
-        'items': items,
-        'totalItems': totalItems,
+        'items': allItems,
+        'totalItems': len(items),
         'categories': categories_in_use,
         'users': users,
         'friends': friends,
