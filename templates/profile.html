@@ -34,22 +34,31 @@
 </div>
 <hr>
 
-<!-- Show all items in their categories -->
+<!-- All Items in list -->
 {% for cat in categories %} 
         <h5 class="mt-3">{{ cat }}</h5>
-        <ol class="mt-4 pl-3 list" id="list_{{forloop.counter}}">
-            <li class="d-flex justify-content-between"><b>Item</b><b>Author</b><b>Quantity</b></li>
+        <table class="container-fluid">
+            <tr>
+                <th>Item</th>
+                <th class="text-right">Quantity</th>
+                <th class="text-right collapse delete">Edit</th>
+            </tr>
             {% for item in items %}
                 {% if item.category == cat %}
-                    <li style="height:30px;" class="mt-1"><span class="d-flex justify-content-between"><span>{{ item.name }}</span><span>{{ item.author }}</span><b class="float-right mr-4">{{ item.quantity }}
-                        <a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete ml-3">Delete</a></b>
-                        
-                    </span></li>
+                    <tr>
+                        <td><img src="https://img.icons8.com/ios/15/000000/info.png" class="mr-3" data-toggle="collapse" href="#info_{{forloop.counter}}"/>{{ item.name }} 
+                        <span class="collapse" id="info_{{forloop.counter}}"><br><img src="https://img.icons8.com/fluent/15/000000/user-male.png" class="mr-2"/>{{ item.author }}</span>
+                    </td>
+                        <td class="text-right">{{ item.quantity }}</td>
+                        <td class="text-right"> <a href="/items/delete/{{item.id}}" class="btn btn-danger btn-sm float-right collapse delete ml-3">Delete</a></td>
+                    </tr>
                 {% endif %}
             {% endfor %}
-        </ol>
+        </table>
         <hr>
 {% endfor %}
+
+
 {% if totalItems == 0 %}
 <p class="text-center">Your cart is empty!</p>
 {% endif %}
