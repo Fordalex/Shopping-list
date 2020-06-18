@@ -15,6 +15,12 @@ def profile(request):
     except:
         friends = None
 
+    # get shopping parners request
+    friendRequest = FriendRequests.objects.filter(to_user=request.user)
+
+    # get sent requests
+    sentRequests = FriendRequests.objects.filter(from_user=request.user)
+
     # all items
     allItems = items
 
@@ -29,22 +35,14 @@ def profile(request):
         if item.category not in categories_in_use:
             categories_in_use.append(item.category)
 
-    # get shopping parners request
-    friendRequest = FriendRequests.objects.filter(to_user=request.user)
-
-    # get sent requests
-    sentRequests = FriendRequests.objects.filter(from_user=request.user)
-
     # data being passed into the profile page.
     content = {
         'items': allItems,
         'totalItems': len(allItems),
         'usersItems': len(items),
         'categories': categories_in_use,
-        'users': users,
         'friendRequests': friendRequest,
         'sentRequests': sentRequests,
-        'friends': friends,
     }
 
     return render(request, 'profile.html', content)
