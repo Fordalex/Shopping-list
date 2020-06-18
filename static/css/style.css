@@ -1,3 +1,7 @@
 tr:nth-child(even) {
     background-color: rgb(245, 245, 245);
 }
+
+.click-icon {
+    cursor: pointer;
+}

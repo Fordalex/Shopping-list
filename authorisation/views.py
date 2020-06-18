@@ -43,6 +43,7 @@ def profile(request):
         'categories': categories_in_use,
         'friendRequests': friendRequest,
         'sentRequests': sentRequests,
+        'friends': friends,
     }
 
     return render(request, 'profile.html', content)

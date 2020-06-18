@@ -8,9 +8,7 @@
 
         <h3 class="text-center">Add</h3>
     </div>
-    <div class="col-12 d-flex justify-content-center">
-        <button data-toggle="collapse" href=".categories" class=" btn btn-primary">Categories</button>
-    </div>
+
 </div>
 
 <div class="row justify-content-center m-0 p-0">
@@ -58,13 +56,17 @@
                 <div class="col-12 mt-2">
                     <input type="submit" value="Add Item" class="btn btn-success form-control">
                 </div>
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <button data-toggle="collapse" href=".categories" class=" btn btn-primary container-fluid">Customise Categories</button>
+                </div>
             </div>
         </form>
     </div>
 </div>
+
 <div class="row justify-content-center m-0 p-0">
-    <div class="col-12 col-md-7 collapse categories mt-5">
-        <h5 class="m-0">Add a category:</h5>
+    <div class="col-12 col-md-7 p-1 collapse categories mt-3">
+        <h5 class="m-0 p-0">Add a category:</h5>
         <form action="/items/add_category/" method="POST">
             {% csrf_token %}
             <div class="row">
@@ -72,24 +74,27 @@
                     <input name="category" class="form-control" required>
                 </div>
                 <div class="col-12 mt-2">
-                    <input type="submit" value="Add Category" class="btn btn-success form-control">
+                    <input type="submit" value="Add Category" class="btn btn-warning form-control">
                 </div>
             </div>
         </form>
-        <h5 class="m-0">Categories:</h5>
+        <h5 class="m-0 mt-3">Categories:</h5>
         {% csrf_token %}
-        <div class="row">
+        <div class="row m-0 p-0 pt-4">
             {% for cat in categories %}
-            <div class="col-12 d-flex justify-content-between my-2">
+            <div class="col-12 m-0 p-0 d-flex justify-content-between">
                 <p>{{ cat.category }}</p>
                 <a class="btn btn-danger" href="/items/remove_category/{{ cat.id }}">Delete</a>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <hr>
             </div>
             {% endfor %}
         </div>
         </form>
     </div>
 </div>
-</[object Object]>
+
 
 <script>
     function add_item(name, category) {
